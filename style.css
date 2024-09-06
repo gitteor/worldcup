@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+#container {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#first-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#main-image {
+    width: 300px;
+    height: auto;
+}
+
+#start-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#tournament-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#images-container {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 20px 0;
+}
+
+.tournament-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+#buttons-container {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+}
+
+#select-image1, #select-image2 {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#final-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#final-image {
+    width: 300px;
+    height: auto;
+    margin-top: 20px;
+}
