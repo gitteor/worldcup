@@ -13,54 +13,47 @@ let nextRound = [];
 let currentIndex = 0;
 let roundNumber = 32;
 
-// 페이지 요소들
-const startButton = document.getElementById("start-button");
-const firstPage = document.getElementById("first-page");
-const tournamentPage = document.getElementById("tournament-page");
-const finalPage = document.getElementById("final-page");
-const roundTitle = document.getElementById("round-title");
-const image1 = document.getElementById("image1");
-const image2 = document.getElementById("image2");
-const selectImage1Button = document.getElementById("select-image1");
-const selectImage2Button = document.getElementById("select-image2");
-const finalImage = document.getElementById("final-image");
-
-// 게임 시작
-startButton.addEventListener("click", () => {
-    firstPage.classList.add("hidden");
-    tournamentPage.classList.remove("hidden");
-    initializeTournament();
-    showNextPair();
-});
-
+// 페이지 초기화 시 불러오는 함수
 function initializeTournament() {
-    currentRound = shuffleArray([...imagePaths]); // 이미지를 랜덤으로 섞음
-    nextRound = [];
-    currentIndex = 0;
-    roundNumber = 32;
-    roundTitle.textContent = `${roundNumber}강`;
+    // 이전에 저장된 라운드 정보가 있는지 확인
+    if (localStorage.getItem('currentRound')) {
+        currentRound = JSON.parse(localStorage.getItem('currentRound'));
+        nextRound = JSON.parse(localStorage.getItem('nextRound'));
+        currentIndex = parseInt(localStorage.getItem('currentIndex'), 10);
+        roundNumber = parseInt(localStorage.getItem('roundNumber'), 10);
+    } else {
+        // 초기화
+        currentRound = shuffleArray(imagePaths); // 이미지를 랜덤으로 섞음
+        nextRound = [];
+        currentIndex = 0;
+        roundNumber = 32;
+    }
+    document.getElementById('round-title').textContent = `${roundNumber}강`;
+    showNextPair();
 }
 
 // 다음 이미지 쌍 보여주기
 function showNextPair() {
     if (currentIndex < currentRound.length - 1) {
-        image1.src = currentRound[currentIndex];
-        image2.src = currentRound[currentIndex + 1];
+        document.getElementById('image1').src = currentRound[currentIndex];
+        document.getElementById('image2').src = currentRound[currentIndex + 1];
     } else {
         proceedToNextRound();
     }
 }
 
-// 선택 버튼 클릭 시 이벤트
-selectImage1Button.addEventListener("click", () => {
+// 이미지 선택 시 처리
+document.getElementById('select-image1').addEventListener('click', () => {
     nextRound.push(currentRound[currentIndex]);
     currentIndex += 2;
+    saveState();
     showNextPair();
 });
 
-selectImage2Button.addEventListener("click", () => {
+document.getElementById('select-image2').addEventListener('click', () => {
     nextRound.push(currentRound[currentIndex + 1]);
     currentIndex += 2;
+    saveState();
     showNextPair();
 });
 
@@ -68,22 +61,25 @@ selectImage2Button.addEventListener("click", () => {
 function proceedToNextRound() {
     if (nextRound.length === 1) {
         // 최종 우승자가 결정된 경우
-        showFinalPage();
+        localStorage.setItem('winner', nextRound[0]);
+        window.location.href = 'final.html';
     } else {
         currentRound = nextRound;
         nextRound = [];
         currentIndex = 0;
         roundNumber /= 2;
-        roundTitle.textContent = `${roundNumber}강`;
+        document.getElementById('round-title').textContent = `${roundNumber}강`;
+        saveState();
         showNextPair();
     }
 }
 
-// 최종 페이지로 이동
-function showFinalPage() {
-    tournamentPage.classList.add("hidden");
-    finalPage.classList.remove("hidden");
-    finalImage.src = currentRound[0];
+// 상태 저장 함수
+function saveState() {
+    localStorage.setItem('currentRound', JSON.stringify(currentRound));
+    localStorage.setItem('nextRound', JSON.stringify(nextRound));
+    localStorage.setItem('currentIndex', currentIndex);
+    localStorage.setItem('roundNumber', roundNumber);
 }
 
 // 배열을 랜덤으로 섞는 함수
