@@ -28,8 +28,13 @@ function initializeTournament() {
         currentIndex = 0;
         roundNumber = 32;
     }
-    document.getElementById('round-title').textContent = `${roundNumber}강`;
+    updateRoundTitle();  // 라운드 제목을 업데이트하는 함수 호출
     showNextPair();
+}
+
+// 라운드 제목 업데이트 함수
+function updateRoundTitle() {
+    document.getElementById('round-title').textContent = `${roundNumber}강`;
 }
 
 // 다음 이미지 쌍 보여주기
@@ -68,7 +73,7 @@ function proceedToNextRound() {
         nextRound = [];
         currentIndex = 0;
         roundNumber /= 2;
-        document.getElementById('round-title').textContent = `${roundNumber}강`;
+        updateRoundTitle();  // 라운드 제목을 다시 업데이트
         saveState();
         showNextPair();
     }
