@@ -1,76 +1,23 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>32강 토너먼트</title>
+    <title>토너먼트</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="tournament-page">
-        <h2 id="round-title"></h2>
+        <h2 id="round-title">32강</h2>
         <div id="images-container">
-            <img id="image1" class="tournament-image" src="" alt="Image 1">
-            <img id="image2" class="tournament-image" src="" alt="Image 2">
+            <img id="image1" class="tournament-image" src="" alt="image 1">
+            <img id="image2" class="tournament-image" src="" alt="image 2">
         </div>
         <div id="buttons-container">
             <button id="select-image1">선택 1</button>
             <button id="select-image2">선택 2</button>
         </div>
     </div>
-
-    <script>
-        const imagePaths = [
-            "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg", 
-            "image6.jpg", "image7.jpg", "image8.jpg", "image9.jpg", "image10.jpg", 
-            "image11.jpg", "image12.jpg", "image13.jpg", "image14.jpg", "image15.jpg", 
-            "image16.jpg", "image17.jpg", "image18.jpg", "image19.jpg", "image20.jpg", 
-            "image21.jpg", "image22.jpg", "image23.jpg", "image24.jpg", "image25.jpg", 
-            "image26.jpg", "image27.jpg", "image28.jpg", "image29.jpg", "image30.jpg", 
-            "image31.jpg", "image32.jpg"
-        ];
-
-        let currentRound = [];
-        let nextRound = [];
-        let currentIndex = 0;
-        let roundNumber = 32;
-
-        const image1 = document.getElementById("image1");
-        const image2 = document.getElementById("image2");
-        const roundTitle = document.getElementById("round-title");
-        const selectImage1Button = document.getElementById("select-image1");
-        const selectImage2Button = document.getElementById("select-image2");
-
-        // 초기화
-        function initializeTournament() {
-            currentRound = shuffleArray(imagePaths);
-            nextRound = [];
-            currentIndex = 0;
-            roundNumber = 32;
-            roundTitle.textContent = `${roundNumber}강`;
-            showNextPair();
-        }
-
-        // 이미지 쌍 보여주기
-        function showNextPair() {
-            if (currentIndex < currentRound.length - 1) {
-                image1.src = currentRound[currentIndex];
-                image2.src = currentRound[currentIndex + 1];
-            } else {
-                proceedToNextRound();
-            }
-        }
-
-        selectImage1Button.addEventListener("click", () => {
-            nextRound.push(currentRound[currentIndex]);
-            currentIndex += 2;
-            showNextPair();
-        });
-
-        selectImage2Button.addEventListener("click", () => {
-            nextRound.push(currentRound[currentIndex + 1]);
-            currentIndex += 2;
-            showNextPair();
-        });
-
-        function proceed
+    <script src="script.js"></script>
+</body>
+</html>
